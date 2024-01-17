@@ -95,9 +95,10 @@ GameObject:
   - component: {fileID: 4329776022602861930}
   - component: {fileID: 1419893899492112962}
   - component: {fileID: 3571070707151993324}
+  - component: {fileID: 1066796719633108139}
   m_Layer: 0
   m_Name: Fence
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -178,4 +179,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cabfcfc163a6dac41823a56e4752beef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
+  movementSpeed: 10
+--- !u!114 &1066796719633108139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 697264543754099617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c6e314a4444c704292a971d5f1cb707, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftBound: -5

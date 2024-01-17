@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,12 +10,18 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody rb;
     private BoxCollider boxCollider;
+    private Animator animator;
+
     private bool bIsGrounded = true;
+    private bool bIsGameOver = false;
+
+    public bool GetIsGameOver() => bIsGameOver;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         boxCollider = GetComponent<BoxCollider>();
+        animator = GetComponent<Animator>();
 
         Physics.gravity *= gravityModifier;
     }
@@ -26,10 +33,11 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
+        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded() && !bIsGameOver)
         {
             bIsGrounded = false;
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            animator.SetTrigger("Jump_trig");
         }
     }
 
@@ -43,5 +51,14 @@ public class PlayerController : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, Vector3.down * rayLength);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            bIsGameOver = true;
+            animator.SetBool("Death_b", true);
+        }
     }
 }
