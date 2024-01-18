@@ -3,8 +3,15 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private GameObject bulletPrefab;
+
     [SerializeField] private float movementSpeed = 1.0f;
     [SerializeField] private float drag = 0.0f;
+
+    [SerializeField] private float topBorder;
+    [SerializeField] private float bottomBorder;
+    [SerializeField] private float leftBorder;
+    [SerializeField] private float rightBorder;
 
     private Rigidbody2D rb;
     private float horizontalInput;
@@ -20,8 +27,9 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         GetInputAxis();
-
         BorderPlayer();
+
+        ShootBullet();
         RotateShip();
     }
 
@@ -39,7 +47,21 @@ public class PlayerController : MonoBehaviour
 
     private void BorderPlayer()
     {
+        if (transform.position.y > topBorder)
+            transform.position = new(transform.position.x, bottomBorder, transform.position.z);
+        else if (transform.position.y < bottomBorder)
+            transform.position = new(transform.position.x, topBorder, transform.position.z);
 
+        if (transform.position.x < leftBorder)
+            transform.position = new(rightBorder, transform.position.y, transform.position.z);
+        else if (transform.position.x > rightBorder)
+            transform.position = new(leftBorder, transform.position.y, transform.position.z);
+    }
+
+    private void ShootBullet()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+            Instantiate(bulletPrefab, transform.position, transform.rotation);
     }
 
     private void RotateShip()
