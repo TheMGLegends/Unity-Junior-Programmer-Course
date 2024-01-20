@@ -13,6 +13,12 @@ public class EnemyController : MonoBehaviour
         player = FindFirstObjectByType<PlayerController>().transform;
     }
 
+    private void Update()
+    {
+        if (transform.position.y < -10)
+            Destroy(gameObject);
+    }
+
     private void FixedUpdate()
     {
         // INFO: Move in the direction of the player at a constant speed no matter the distance
